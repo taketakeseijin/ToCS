@@ -2,7 +2,7 @@ from setuptools import setup, Extension
 from torch.utils import cpp_extension
 
 module_name = "TCS_cuSol"
-cpp_files = ["tcs_cuSol.cpp","tcs_cuSol_kernel.cu"]
+cpp_files = ["./csrc/tcs_cuSol.cpp","./csrc/tcs_cuSol_kernel.cu"]
 #inc = ["/usr/include"]
 setup(name=module_name,
       ext_modules=[Extension(

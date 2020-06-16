@@ -40,3 +40,27 @@ def single_Csolve(tensor_A_r,tensor_A_i,tensor_b_r,tensor_b_i,pivot_on=True):
     else:
         tensor_x_r,tensor_x_i,tensor_lu_r,tensor_lu_i = TCS_cuSol.Csolve(input_A_r,input_A_i,input_b_r,input_b_i,0)
         return tensor_x_r.T,tensor_x_i.T,tensor_lu_r.T,tensor_lu_i.T
+
+def Batch_Csolve(tensor_A_r,tensor_A_i,tensor_b_r,tensor_b_i,pivot_on=True):
+    batch_size = tensor_A_r.shape[0]
+    tensor_x_r = torch.empty_like(tensor_b_r)
+    tensor_x_i = torch.empty_like(tensor_b_i)
+    streams = [torch.cuda.Stream() for _ in range(batch_size)]
+    torch.cuda.current_stream().synchronize()
+    for b,stream in enumerate(streams):
+        # parallel
+        with torch.cuda.stream(stream):
+            temp_x_r,temp_x_i,_,_ = single_Csolve(
+                tensor_A_r[b],
+                tensor_A_i[b],
+                tensor_b_r[b],
+                tensor_b_i[b],
+                pivot_on=pivot_on)
+            tensor_x_r[b] = temp_x_r
+            tensor_x_i[b] = temp_x_i
+    # block all parallel stream
+    for stream in streams:
+        stream.synchronize()
+    return tensor_x_r,tensor_x_i
+
+    
