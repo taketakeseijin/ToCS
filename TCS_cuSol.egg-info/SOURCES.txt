@@ -1,7 +1,0 @@
-setup_cuSol.py
-tcs_cuSol.cpp
-tcs_cuSol_kernel.cu
-TCS_cuSol.egg-info/PKG-INFO
-TCS_cuSol.egg-info/SOURCES.txt
-TCS_cuSol.egg-info/dependency_links.txt
-TCS_cuSol.egg-info/top_level.txt
