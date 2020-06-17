@@ -26,19 +26,16 @@ def Batch_Csolve(
             tensor_A_i,
             tensor_b_r,
             tensor_b_i,
-            device=None):
-    if device is None:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-    
-    if "cuda" in device:
-        return cuSol.Batch_Csolve(
+            device):
+    if device == "cpu":
+        return cpu.batch_complex_solver(
             tensor_A_r,
             tensor_A_i,
             tensor_b_r,
             tensor_b_i,
         )
     else:
-        return cpu.batch_complex_solver(
+        return cuSol.Batch_Csolve(
             tensor_A_r,
             tensor_A_i,
             tensor_b_r,
@@ -54,11 +51,15 @@ class CsolverFunction(Function):
         tensor_A_i,
         tensor_b_r,
         tensor_b_i,):
+        assert tensor_A_r.is_cuda() == tensor_A_i.is_cuda() == tensor_b_r.is_cuda() == tensor_b_i.is_cuda(), "is_cuda not match" 
+        ctx.device = "cuda" if tensor_A_r.is_cuda() else "cpu"       
+
         tensor_x_r, tensor_x_i = Batch_Csolve(
             tensor_A_r,
             tensor_A_i,
             tensor_b_r,
             tensor_b_i,
+            ctx.device,
         )
         ctx.save_for_backward(
             tensor_A_r,
@@ -82,6 +83,7 @@ class CsolverFunction(Function):
                 tensor_A_i.transpose(-1,-2),
                 grad_x_r.expand(batch_size,-1,-1),
                 grad_x_i.expand(batch_size,-1,-1),
+                ctx.device,
             )
         if ctx.needs_input_grad[0] or ctx.needs_input_grad[1]:
             grad_A_r = - (torch.einsum("bnk,bmk->bnm", grad_b_r, tensor_x_r) - torch.einsum("bnk,bmk->bnm", grad_b_i, tensor_x_i))
