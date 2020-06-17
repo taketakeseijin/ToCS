@@ -63,3 +63,5 @@ class CsolverFunction(Function):
             grad_A_r = - (torch.einsum("bnk,bmk->bnm", grad_b_r, tensor_x_r) - torch.einsum("bnk,bmk->bnm", grad_b_i, tensor_x_i))
             grad_A_i = - (torch.einsum("bnk,bmk->bnm", grad_b_r, tensor_x_i) + torch.einsum("bnk,bmk->bnm", grad_b_i, tensor_x_r))
         return grad_A_r, grad_A_i, grad_b_r, grad_b_i
+
+Csolve = CsolverFunction.apply
