@@ -16,10 +16,10 @@ python setup_cuSol.py install
 Usage as a _torch.nn.Module_. 
 
 ```python
-import TCSF
-tcsf_module = TCSF.Csolver()
+import tocs
+tocs_module = tocs.Csolver()
 ~
-x_r,x_i = tcsf_module(A_r,A_i,b_r,b_i)
+x_r,x_i = tocs_module(A_r,A_i,b_r,b_i)
 ```
 
 Usage as a _torch.nn.functional_. Just a **replace of "torch.solve"**
@@ -28,7 +28,7 @@ Usage as a _torch.nn.functional_. Just a **replace of "torch.solve"**
 import TCSF
 ~
 # x = torch.solve(b,A)
-x_r,x_i = TCSF.CsolverFunction.apply(A_r,A_i,b_r,b_i)
+x_r,x_i = tocs.CsolverFunction.apply(A_r,A_i,b_r,b_i)
 ```
 \_r, \_i means real, imaginary part of the tensor respectively.
 ## What's inside?
