@@ -1,6 +1,6 @@
 # ToCS
 ToCS means **To**rch **C**omplex **S**olver.  
-This repository gives you the **_complex_ version of "torch.solve"**.  
+This repository gives you the **complex** version of **"torch.solve"**.  
 With ToCS, you can solve **Ax = b** such that **A,b,x are complex**.  
 TCS works on **both CPUs and GPUs**.
 
