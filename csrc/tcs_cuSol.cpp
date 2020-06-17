@@ -144,7 +144,6 @@ std::vector<torch::Tensor> tcs_Rsolve(
     return {input_b,input_A};
 }
 
-
 std::vector<torch::Tensor> tcs_Csolve(
     torch::Tensor input_A_r,
     torch::Tensor input_A_i,
