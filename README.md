@@ -38,4 +38,5 @@ For gpu tensor, cuSolver works. Batch is parallely computerd.
 ubuntu 18  
 python 3.8  
 pytorch 1.4  
-cuda 10  
+cuda tool kit 10  
+GeForce GTX 1080 Ti  
