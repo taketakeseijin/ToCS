@@ -13,6 +13,14 @@ python setup_cuSol.py install
 ```
 
 ## How to use
+Usage as a _torch.nn.functional_. **Replace of "torch.solve"**
+
+```python
+import tocs
+~
+# x = torch.solve(b,A)
+x_r,x_i = tocs.Csolve(A_r,A_i,b_r,b_i)
+```
 Usage as a _torch.nn.Module_. 
 
 ```python
@@ -20,15 +28,6 @@ import tocs
 tocs_Csolver = tocs.Csolver()
 ~
 x_r,x_i = tocs_Csolver(A_r,A_i,b_r,b_i)
-```
-
-Usage as a _torch.nn.functional_. Just a **replace of "torch.solve"**
-
-```python
-import tocs
-~
-# x = torch.solve(b,A)
-x_r,x_i = tocs.Csolve(A_r,A_i,b_r,b_i)
 ```
 \_r, \_i means real, imaginary part of the tensor respectively.
 ## What's inside?
