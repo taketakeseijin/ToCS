@@ -1,19 +1,19 @@
-# TCS
-TCS means Torch Complex Solver.  
-This repository gives you the complex version of "torch.solve".  
-With TCS, you can solve Ax = b such that A,b,x are complex.  
-TCS works in both cpu and gpu.
+# ToCS
+ToCS means **To**rch **C**omplex **S**olver.  
+This repository gives you the **_complex_ version of "torch.solve"**.  
+With ToCS, you can solve **_Ax = b_** such that **A,b,x are complex**.  
+TCS works on **both CPUs and GPUs**.
 
 ## Build
-For use in gpu, you need to build.  
-But just run below.
+When you want to use **ToCS on GPUs**, you need to build the c++ & cuda extension code.  
+Run the below line once. The line enables ToCS to use cuSolver.
 
 ```sh
 python setup_cuSol.py install
 ```
 
 ## How to use
-Use as a torch.nn.Module
+Usage as a _torch.nn.Module_. 
 
 ```python
 import TCSF
@@ -22,21 +22,23 @@ tcsf_module = TCSF.Csolver()
 x_r,x_i = tcsf_module(A_r,A_i,b_r,b_i)
 ```
 
-Use as a torch.nn.functional. Just a replace of torch.solve
+Usage as a _torch.nn.functional_. Just a **replace of "torch.solve"**
 
 ```python
 import TCSF
 ~
+# x = torch.solve(b,A)
 x_r,x_i = TCSF.CsolverFunction.apply(A_r,A_i,b_r,b_i)
 ```
-_r, _i means real, imaginary part respectively.
+\_r, \_i means real, imaginary part of the tensor respectively.
 ## What's inside?
-For cpu tensor, scipy.linalg.solve works. Batch is parallely computed.  
-For gpu tensor, cuSolver works. Batch is parallely computerd.
+On CPUs, [scipy.linalg.solve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html#scipy.linalg.solve) works.  
+On GPUs, [cuSolver's Dense linear solver](https://docs.nvidia.com/cuda/cusolver/index.html#cuSolverDN-linearsolver-reference) works. 
+On both CPUs and GPUs, **Batch is parallely computerd**.
 
-## build tested environment
-ubuntu 18  
-python 3.8  
-pytorch 1.4  
-cuda tool kit 10  
-GeForce GTX 1080 Ti  
+## Build tested environment
+- ubuntu 18  
+- python 3.8  
+- pytorch 1.4  
+- cuda tool kit 10  
+- GeForce GTX 1080 Ti  
