@@ -1,4 +1,4 @@
-import TCS_cuSol #build from cpp with cuSolver
+import ToCS_cuSol #build from cpp with cuSolver
 import torch
 
 def single_Rsolve(tensor_A,tensor_b,pivot_on=True):

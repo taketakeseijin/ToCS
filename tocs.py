@@ -1,6 +1,7 @@
 # Torch Complex Solver Functional
 import torch
-import tcs_cuSol as cuSol
+import tocs_cuSol as cuSol
+import tocs_cpu as cpu
 from torch.autograd import Function
 
 class Csolver(torch.nn.Module):
