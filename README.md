@@ -1,7 +1,7 @@
 # ToCS
 ToCS means **To**rch **C**omplex **S**olver.  
 This repository gives you the **_complex_ version of "torch.solve"**.  
-With ToCS, you can solve **_Ax = b_** such that **A,b,x are complex**.  
+With ToCS, you can solve **Ax = b** such that **A,b,x are complex**.  
 TCS works on **both CPUs and GPUs**.
 
 ## Build
@@ -34,7 +34,7 @@ x_r,x_i = TCSF.CsolverFunction.apply(A_r,A_i,b_r,b_i)
 ## What's inside?
 On CPUs, [scipy.linalg.solve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html#scipy.linalg.solve) works.  
 On GPUs, [cuSolver's Dense linear solver](https://docs.nvidia.com/cuda/cusolver/index.html#cuSolverDN-linearsolver-reference) works. 
-On both CPUs and GPUs, **Batch is parallely computerd**.
+On both CPUs and GPUs, **Batch is parallely computed**.
 
 ## Build tested environment
 - ubuntu 18  
