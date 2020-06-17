@@ -18,6 +18,8 @@ Use as a torch.nn.Module
 ```python
 import TCSF
 tcsf_module = TCSF.Csolver()
+~
+x_r,x_i = tcsf_module(A_r,A_i,b_r,b_i)
 ```
 
 Use as a torch.nn.functional. Just a replace of torch.solve
