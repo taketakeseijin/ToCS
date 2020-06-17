@@ -21,6 +21,30 @@ class Csolver(torch.nn.Module):
             tensor_b_r,
             tensor_b_i,)
 
+def Batch_Csolve(
+            tensor_A_r,
+            tensor_A_i,
+            tensor_b_r,
+            tensor_b_i,
+            device=None):
+    if device is None:
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+    
+    if "cuda" in device:
+        return cuSol.Batch_Csolve(
+            tensor_A_r,
+            tensor_A_i,
+            tensor_b_r,
+            tensor_b_i,
+        )
+    else:
+        return cpu.batch_complex_solver(
+            tensor_A_r,
+            tensor_A_i,
+            tensor_b_r,
+            tensor_b_i,
+        )
+
 class CsolverFunction(Function):
 
     @staticmethod
@@ -30,7 +54,7 @@ class CsolverFunction(Function):
         tensor_A_i,
         tensor_b_r,
         tensor_b_i,):
-        tensor_x_r, tensor_x_i = cuSol.Batch_Csolve(
+        tensor_x_r, tensor_x_i = Batch_Csolve(
             tensor_A_r,
             tensor_A_i,
             tensor_b_r,
@@ -53,7 +77,7 @@ class CsolverFunction(Function):
         grad_A_r = grad_A_i = grad_b_r = grad_b_i = None
         batch_size = tensor_A_r.shape[0]
         if any(ctx.needs_input_grad):
-            grad_b_r, grad_b_i = cuSol.Batch_Csolve(
+            grad_b_r, grad_b_i = Batch_Csolve(
                 tensor_A_r.transpose(-1,-2),
                 tensor_A_i.transpose(-1,-2),
                 grad_x_r.expand(batch_size,-1,-1),
