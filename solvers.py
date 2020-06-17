@@ -1,6 +1,6 @@
 import torch
-import tcs_cpu as cpu
-import tcs_cuSol as cuSol
+import tocs_cpu as cpu
+import tocs_cuSol as cuSol
 
 def check_tensor(tensor,dim):
     if dim == tensor.dim():
