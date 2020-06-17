@@ -32,7 +32,7 @@ _r, _i means real, imaginary part respectively.
 For cpu tensor, scipy.linalg.solve works. Batch is parallely computed.  
 For gpu tensor, cuSolver works. Batch is parallely computerd.
 
-## Load tested environment
+## build tested environment
 ubuntu 18  
 python 3.8  
 pytorch 1.4  
