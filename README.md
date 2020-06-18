@@ -29,7 +29,7 @@ tocs_Csolver = tocs.Csolver()
 ~
 x_r,x_i = tocs_Csolver(b_r,b_i,A_r,A_i)
 ```
-\_r, \_i means real, imaginary part of the tensor respectively.
+\_r, \_i mean real, imaginary part of the tensor respectively.
 ## What's inside?
 On CPUs, [scipy.linalg.solve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html#scipy.linalg.solve) works.  
 On GPUs, [cuSolver's Dense linear solver](https://docs.nvidia.com/cuda/cusolver/index.html#cuSolverDN-linearsolver-reference) works.   
