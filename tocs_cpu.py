@@ -1,6 +1,7 @@
 
 from concurrent import futures
 
+import torch
 from scipy import linalg
 import numpy as np
 
@@ -10,6 +11,11 @@ def complex_solver_cpu_kernel(np_complex_A,np_complex_b,np_complex_x,kernel_id):
 
 def tensor_to_complex_np(tensor_r,tensor_i):
     return tensor_r.detach().cpu().numpy() + 1j*tensor_i.detach().cpu().numpy()
+
+def complex_np_to_tensor(complex_numpy):
+    real_np = np.real(complex_numpy).astype(np.float32)
+    imag_np = np.imag(complex_numpy).astype(np.float32)
+    return torch.from_numpy(real_np), torch.from_numpy(imag_np)
 
 def batch_complex_solver(tensor_A_r,tensor_A_i,tensor_b_r,tensor_b_i,max_workers=4):
     # A [...,n,n]
@@ -40,6 +46,7 @@ def batch_complex_solver(tensor_A_r,tensor_A_i,tensor_b_r,tensor_b_i,max_workers
             future_list.append(future)
         _ = futures.as_completed(fs=future_list)
 
-    return batch_np_complex_x.reshape(original_b_shape)
+    batch_np_complex_x = batch_np_complex_x.reshape(original_b_shape)
+    return complex_np_to_tensor(batch_np_complex_x)
 
 

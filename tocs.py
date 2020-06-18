@@ -24,7 +24,7 @@ class Csolver(torch.nn.Module):
             tensor_A_i,)
 
 def check_device(*tensors):
-    list_is_cuda = [tensor.is_cuda() for tensor in tensors]
+    list_is_cuda = [tensor.is_cuda for tensor in tensors]
     if all(list_is_cuda):
         return "cuda"
     list_is_cpu = [not is_cuda for is_cuda in list_is_cuda]
@@ -102,7 +102,7 @@ class CsolverFunction(Function):
                           torch.einsum("bnk,bmk->bnm", grad_b_i, tensor_x_i))
             grad_A_i = - (torch.einsum("bnk,bmk->bnm", grad_b_r, tensor_x_i) +
                           torch.einsum("bnk,bmk->bnm", grad_b_i, tensor_x_r))
-        return grad_A_r, grad_A_i, grad_b_r, grad_b_i
+        return  grad_b_r, grad_b_i, grad_A_r, grad_A_i
 
 
 Csolve = CsolverFunction.apply
