@@ -1,4 +1,4 @@
-# Torch Complex Solver Functional
+# ToCS main interface to PyTorch
 import torch
 from torch.autograd import Function
 
@@ -12,16 +12,16 @@ class Csolver(torch.nn.Module):
 
     def forward(
             self,
-            tensor_A_r,
-            tensor_A_i,
             tensor_b_r,
-            tensor_b_i,):
+            tensor_b_i,
+            tensor_A_r,
+            tensor_A_i,):
 
         return CsolverFunction.apply(
-            tensor_A_r,
-            tensor_A_i,
             tensor_b_r,
-            tensor_b_i,)
+            tensor_b_i,
+            tensor_A_r,
+            tensor_A_i,)
 
 def check_device(*tensors):
     list_is_cuda = [tensor.is_cuda() for tensor in tensors]
@@ -64,10 +64,10 @@ class CsolverFunction(Function):
     @staticmethod
     def forward(
             ctx,
-            tensor_A_r,
-            tensor_A_i,
             tensor_b_r,
-            tensor_b_i,):
+            tensor_b_i,
+            tensor_A_r,
+            tensor_A_i,):
         tensor_x_r, tensor_x_i = Batch_Csolve(
             tensor_A_r,
             tensor_A_i,

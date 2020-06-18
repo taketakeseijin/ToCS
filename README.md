@@ -19,7 +19,7 @@ Usage as a _torch.nn.functional_. **Replace of "torch.solve"**
 import tocs
 ~
 # x = torch.solve(b,A)
-x_r,x_i = tocs.Csolve(A_r,A_i,b_r,b_i)
+x_r,x_i = tocs.Csolve(b_r,b_i,A_r,A_i)
 ```
 Usage as a _torch.nn.Module_. 
 
@@ -27,7 +27,7 @@ Usage as a _torch.nn.Module_.
 import tocs
 tocs_Csolver = tocs.Csolver()
 ~
-x_r,x_i = tocs_Csolver(A_r,A_i,b_r,b_i)
+x_r,x_i = tocs_Csolver(b_r,b_i,A_r,A_i)
 ```
 \_r, \_i means real, imaginary part of the tensor respectively.
 ## What's inside?
