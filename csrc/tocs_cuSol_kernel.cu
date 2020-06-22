@@ -39,7 +39,7 @@ void Tensor_to_cuComplex(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	// max threads differ frome device
 	const int threads = 1024;
 	const int blocks = 65535;
-	 int by = len / threads + 1;
+	int by = len / threads + 1;
 	const int bx = by / blocks + 1;
 	if (by > blocks) by = blocks;
 
@@ -58,7 +58,7 @@ void cuComplex_to_Tensor(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	// max threads differ frome device
 	const int threads = 1024;
 	const int blocks = 65535;
-	 int by = len / threads + 1;
+	int by = len / threads + 1;
 	const int bx = by / blocks + 1;
 	if (by > blocks) by = blocks;
 

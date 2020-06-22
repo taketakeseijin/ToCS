@@ -6,23 +6,6 @@ import tocs_cuSol as cuSol
 import tocs_cpu as cpu
 
 
-class Csolver(torch.nn.Module):
-    def __init__(self):
-        super().__init__()
-
-    def forward(
-            self,
-            tensor_b_r,
-            tensor_b_i,
-            tensor_A_r,
-            tensor_A_i,):
-
-        return CsolverFunction.apply(
-            tensor_b_r,
-            tensor_b_i,
-            tensor_A_r,
-            tensor_A_i,)
-
 def check_device(*tensors):
     list_is_cuda = [tensor.is_cuda for tensor in tensors]
     if all(list_is_cuda):
