@@ -1,4 +1,5 @@
 #include <torch/types.h>
+#include <ATen/cuda/CUDAContext.h>
 
 #include <cuComplex.h>
 #include <cuda.h>
@@ -43,8 +44,9 @@ void Tensor_to_cuComplex(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	if (by > blocks) by = blocks;
 
 	const dim3 grid(bx,by);
+    auto stream = at::cuda::getCurrentCUDAStream();
 
-	moveto_cu<<<grid,threads>>>(realPtr, imagPtr, dst,len);
+	moveto_cu<<<grid,threads,0,stream>>>(realPtr, imagPtr, dst,len);
 }
 void cuComplex_to_Tensor(torch::Tensor real, torch::Tensor imag, cuComplex* dst, int len)
 {
@@ -61,6 +63,7 @@ void cuComplex_to_Tensor(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	if (by > blocks) by = blocks;
 
 	const dim3 grid(bx,by);
+    auto stream = at::cuda::getCurrentCUDAStream();
 
-	moveto_10<<<grid,threads>>>(realPtr, imagPtr, dst,len);
+	moveto_10<<<grid,threads,0,stream>>>(realPtr, imagPtr, dst,len);
 }
