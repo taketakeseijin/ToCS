@@ -10,7 +10,7 @@
 __global__
 void moveto_cu(float* real, float* imag, cuComplex* dst, int len)
 {
-	const int i = blockIdx.x * gridDim.y * blockDim.x + blockIdx.y * blockDim.x + threadIdx.x;
+	const int i = (blockIdx.x * gridDim.y + blockIdx.y ) * blockDim.x + threadIdx.x;
 	
 	if(i >= len)
 		return;
@@ -20,7 +20,7 @@ void moveto_cu(float* real, float* imag, cuComplex* dst, int len)
 __global__
 void moveto_10(float* real, float* imag, cuComplex* dst, int len)
 {
-	const int i = blockIdx.x * gridDim.y * blockDim.x + blockIdx.y * blockDim.x + threadIdx.x;
+	const int i = (blockIdx.x * gridDim.y + blockIdx.y ) * blockDim.x + threadIdx.x;
 
 	if(i >= len)
 		return;
@@ -36,7 +36,7 @@ void Tensor_to_cuComplex(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	realPtr = real.data_ptr<float>();
 	imagPtr = imag.data_ptr<float>();
 
-	// max threads differ frome device
+	// max threads differ on devices
 	const int threads = 1024;
 	const int blocks = 65535;
 	 int by = len / threads + 1;
@@ -55,7 +55,7 @@ void cuComplex_to_Tensor(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	realPtr = real.data_ptr<float>();
 	imagPtr = imag.data_ptr<float>();
 
-	// max threads differ frome device
+	// max threads differ on devices
 	const int threads = 1024;
 	const int blocks = 65535;
 	 int by = len / threads + 1;
