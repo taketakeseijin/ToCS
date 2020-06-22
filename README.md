@@ -21,14 +21,6 @@ import tocs
 # x = torch.solve(b,A)
 x_r,x_i = tocs.Csolve(b_r,b_i,A_r,A_i)
 ```
-Usage as a _torch.nn.Module_. 
-
-```python
-import tocs
-tocs_Csolver = tocs.Csolver()
-~
-x_r,x_i = tocs_Csolver(b_r,b_i,A_r,A_i)
-```
 \_r, \_i mean real, imaginary part of the tensor respectively.
 ## What's inside?
 On CPUs, [scipy.linalg.solve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html#scipy.linalg.solve) works.  
