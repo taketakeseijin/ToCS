@@ -44,7 +44,7 @@ void Tensor_to_cuComplex(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	if (by > blocks) by = blocks;
 
 	const dim3 grid(bx,by);
-    auto stream = at::cuda::getCurrentCUDAStream();
+    cudaStream_t stream = at::cuda::getCurrentCUDAStream();
 
 	moveto_cu<<<grid,threads,0,stream>>>(realPtr, imagPtr, dst,len);
 }
@@ -63,7 +63,7 @@ void cuComplex_to_Tensor(torch::Tensor real, torch::Tensor imag, cuComplex* dst,
 	if (by > blocks) by = blocks;
 
 	const dim3 grid(bx,by);
-    auto stream = at::cuda::getCurrentCUDAStream();
+    cudaStream_t stream = at::cuda::getCurrentCUDAStream();
 
 	moveto_10<<<grid,threads,0,stream>>>(realPtr, imagPtr, dst,len);
 }
