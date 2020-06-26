@@ -1,5 +1,5 @@
-import ToCS_cuSol #build from cpp with cuSolver
 import torch
+import ToCS_cuSol #build from cpp with cuSolver
 
 def single_Rsolve(tensor_A,tensor_b,pivot_on=True):
     # tensor_A  [m1,m2]  -> input_A     [m2,m1]
