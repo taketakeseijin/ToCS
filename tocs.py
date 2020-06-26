@@ -88,4 +88,14 @@ class CsolverFunction(Function):
         return  grad_b_r, grad_b_i, grad_A_r, grad_A_i
 
 
-Csolve = CsolverFunction.apply
+
+def Csolve(b_r,b_i,A_r,A_i):
+    origin_b_shape = b_r.shape
+    origin_A_shape = A_r.shape
+    batch_b_r = b_r.reshape(-1,origin_b_shape[-2],origin_b_shape[-1])
+    batch_b_i = b_i.reshape(-1,origin_b_shape[-2],origin_b_shape[-1])
+    batch_A_r = A_r.reshape(-1,origin_A_shape[-2],origin_A_shape[-1])
+    batch_A_i = A_i.reshape(-1,origin_A_shape[-2],origin_A_shape[-1])
+
+    batch_x_r, batch_x_i = CsolverFunction.apply(batch_b_r,batch_b_i,batch_A_r,batch_A_i)
+    return batch_x_r.reshape(origin_b_shape),batch_x_i.reshape(origin_b_shape)
